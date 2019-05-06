@@ -1,4 +1,4 @@
-# MovieExplorer Instructions
+# MovieExplorer
 
 MovieExplorer is a tool that allows you to **explore and navigate the cinematic universe**. Use it to find a movie you're in the mood for right now, to browse movies that match a particular interest, or to explore new genres and tastes!
 
@@ -11,9 +11,9 @@ MovieExplorer was originally developed for by [Taavi Taijala](https://taavi.taij
 
 ## Installation
 
-It is highly recommended that run this project from a virtualenv to avoid incompatibilities and other issues.
+It is highly recommended that install this project and it's dependencies into a newly-created virtualenv to avoid incompatibilities and other issues. If you are using a virtualenv, make sure it's been activated before running any of the following commands.
 
-To install dependencies, run `pip3 install -r requirements.txt` from the root project directory.
+To install dependencies, run `pip3 install -r requirements.txt` from the root project directory. 
 
 ## Running MovieExplorer
 
@@ -22,14 +22,12 @@ In one terminal window, run:
 ```
 cd api
 python3 app.py
-
 ```
 
 In another terminal window, run:
 
 ```
 python3 demo.py
-
 ```
 
 You should now be able to visit `localhost:8000` in your browser and use MovieExplorer.
