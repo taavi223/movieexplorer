@@ -1,0 +1,128 @@
+<div class="header">
+  <div class="inner">
+    <div class="left" style="width: 250px; text-align: left;">
+      <a ng-href="#/" class="btn btn-default navbar-btn">Instructions</a></span>
+    </div>
+    <span style="color: #f16625; font-size: 25px; line-height:50px;">MovieExplorer</span>
+    <div class="right" style="width: 250px; text-align: right;">
+      <button ng-click="newSession()" class="btn btn-default navbar-btn"><i class="fa fa-undo" aria-hidden="true"></i> Start Over</button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<!-- Historical rounds (only show items with positive preferences) -->
+<div class="round" ng-repeat="round in rounds track by round.number">
+
+  <div class="round-title">
+    <h3 class="left">
+      Round {{ round.number }}
+    </h3>
+    <div class="right">
+        <button class="btn btn-default" type="submit" ng-disabled="buttonsDisabled" ng-click="previousRound(round.number)"><i class="fa fa-undo" aria-hidden="true"></i> Go back to this round</button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="ephemeral-row no-wrap">
+
+    <div class="ephemeral-pref-group pos-pref" ng-show="round.movies[1].length > 0">
+      <div class="pref-label pos-pref">
+        <span class="text">More<br>Like<br><span class="big">{{ round.movies[1].length }}</span><br>Movie<span class="plural" ng-show="round.movies[1].length > 1">s</span></span>
+      </div><!--
+   --><div class="movies">
+        <div class="ephemeral-movie-card" ng-repeat="movie in round.movies[1] track by movie.item_index">
+          <ng-include src="'partials/movie-card.html'"></ng-include>
+        </div>
+      </div>
+    </div><!--
+
+ --><div class="ephemeral-pref-group neg-pref" ng-show="round.movies[-1].length > 0">
+      <div class="pref-label neg-pref">
+        <span class="text">Less<br>Like<br><span class="big">{{ round.movies[-1].length }}</span><br>Movie<span class="plural" ng-show="round.movies[-1].length > 1">s</span></span>
+      </div><!--
+   --><div class="movies">
+        <div class="ephemeral-movie-card" ng-repeat="movie in round.movies[-1] track by movie.item_index">
+          <ng-include src="'partials/movie-card.html'"></ng-include>
+        </div>
+      </div>
+    </div><!--
+
+ --><div class="ephemeral-pref-group no-pref" ng-show="round.movies[0].length > 0">
+      <div class="pref-label no-pref">
+        <span class="text"><br>Ignored<br><span class="big">{{ round.movies[0].length }}</span><br>Movie<span class="plural" ng-show="round.movies[0].length > 1">s</span></span>
+      </div><!--
+   --><div class="movies">
+        <div class="ephemeral-movie-card" ng-repeat="movie in round.movies[0] track by movie.item_index">
+          <ng-include src="'partials/movie-card.html'"></ng-include>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr/>
+</div>
+
+<!-- Current round -->
+<div>
+    
+  <div class="round-title">
+    <h3 class="left">
+      Current Round
+    </h3>
+    <div class="right">
+        <button class="btn btn-default" type="submit" ng-disabled="buttonsDisabled || expandRoundDisabled" ng-click="expandRound()"><i class="fa fa-plus" aria-hidden="true"></i> Show more movies</button>
+        <button class="btn btn-default" type="submit" ng-disabled="buttonsDisabled" ng-click="refreshRound()"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh round</button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="alert alert-danger" role="alert" ng-show="errorMessage">
+    <p>
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+      <strong>Whoops, MovieExplorer encountered an error while trying to complete your action.</strong>
+    </p>
+    <p>
+      Please try your action again. If the problem persists, make sure you're connected to the internet and try refreshing the page.
+    </p>
+  </div>
+  <div class="alert alert-info" role="alert" ng-show="rounds.length == 0">
+    <p>
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
+      <strong>Begin by providing feedback on some or all of the movies below.</strong>
+    </p>
+    <p>
+      If none of the movies look good, try using the &ldquo;start over&rdquo; button to get a new set of starting movies.
+    </p>
+  </div>
+  <div class="alert alert-info" role="alert" ng-show="rounds.length == 1">
+    <p>
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
+      <strong>Continue refining your results by providing feedback on the movies below.</strong>
+    </p>
+    <p>
+      Remember that it's okay to leave some movies blank, especially if you're not familiar with them.
+    </p>
+  </div>
+
+  <div class="ephemeral-row" ng-repeat="candidateRow in candidateRows">
+    <div class="ephemeral-movie-card" ng-repeat="movie in candidateRow track by movie.item_index">
+      <ng-include src="'partials/movie-card.html'"></ng-include>
+      <div class="pref-row multi-pref">
+        <button class="pref pos-pref" ng-class="prefIsSet(movie.item_index, 1) ? 'pref-active' : 'pref-inactive'" ng-click="setPref(movie.item_index, 1)"><span class="big">More</span> <span class="small">like this</span></button><!--
+     --><button class="pref neg-pref" ng-class="prefIsSet(movie.item_index, -1) ? 'pref-active' : 'pref-inactive'" ng-click="setPref(movie.item_index, -1)"><span class="big">Less</span> <span class="small">like this</span></button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="button-row">
+    <div class="right">
+      <!--<button class="btn btn-default" type="submit" ng-disabled="buttonsDisabled" ng-click="refreshRound()"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh round</button>-->
+      <button class="btn btn-primary" type="submit" ng-disabled="buttonsDisabled" ng-click="nextRound()">Submit and go to next round <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <a name="end"></a>
+</div>

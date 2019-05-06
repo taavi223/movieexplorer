@@ -1,0 +1,38 @@
+<div class="ml4-movie-card">
+  
+  <div class="movie-card-container">
+    
+    <div class="movie-card-metadata">
+      
+      <div class="movie-card-metadata-title movie-card-metadata-title-fade">
+        <a ng-click="modal(movie)" title="{{ movie.title }}">{{ movie.title }}</a>
+      </div>
+
+      <div class="movie-card-metadata-info">
+        <span class="movie-card-metadata-info-item" ng-show="movie.releaseDate">{{ movie.releaseDate | date:'yyyy' }}</span>
+        <span class="movie-card-metadata-info-item movie-card-metadata-info-mpaa" ng-show="movie.mpaa">{{ movie.mpaa }}</span>
+        <span class="movie-card-metadata-info-item" ng-hide="movie.mpaa || !movie.runtime || !movie.releaseDate">&bull;</span>
+        <span ng-show="movie.runtime">{{ movie.runtime }} min</span> &nbsp;
+      </div>
+    
+    </div> <!-- end movie-card-metadata -->
+
+    <div class="movie-card-image-and-info">
+
+      <div class="movie-card-image">
+          <img ng-src="//image.tmdb.org/t/p/w154{{ movie.posterPath }}" alt="{{ movie.title }} poster" ng-show="movie.posterPath">
+      </div>
+
+      <div class="movie-card-under-image">
+        <div class="movie-card-under-image-item">{{ movie.popularity | number }} <ng-pluralize count="movie.popularity" when="{'1': 'rating', 'other': 'ratings'}"></ng-pluralize></div>
+        <div class="movie-card-under-image-item">avg {{ movie.avgRating | number:1 }} stars</div>
+        <div class="movie-card-under-image-item" ng-show="movie.genres[0]">genres: {{ movie.genres.join(', ') }}</div>
+        <div class="movie-card-under-image-item" ng-show="movie.languages[0]">languages: {{ movie.languages.join(', ') }}</div>
+        <div class="bottom" style="text-align:center;"><button ng-click="modal(movie)" class="btn btn-xs btn-default" title="Show more details for {{ movie.title }}"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Show Details</button></div>
+      </div>
+      
+    </div> <!-- end movie-card-image-and-info -->
+    
+  </div> <!-- end movie-card-container -->
+
+</div> <!-- end ml4-movie-card -->

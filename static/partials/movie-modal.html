@@ -1,0 +1,63 @@
+<div class="ml4-movie-list-card-modal">
+  <a class="close" ng-click="$close()" style="margin-top:-10px; font-size: 2em; z-index: 100">&times;</a>
+  
+  <h2>{{ $ctrl.movie.title }}</h2>
+  
+  <div class="row">
+    <div class="col-xs-5">
+      <img style="width: 100%;" ng-src="{{ $ctrl.fullPosterPath }}" class="large-movie-poster" alt="movie poster" ng-show="$ctrl.fullPosterPath" />
+    </div>
+
+    <div class="col-xs-7">
+      <div class="movie-meta-header movie-details-section">
+        <span ng-show="$ctrl.movie.releaseDate">{{ $ctrl.movie.releaseDate | date:'yyyy' }}</span>
+        <span class="mpaa" ng-show="$ctrl.movie.mpaa">{{ $ctrl.movie.mpaa }}</span>
+        <span ng-hide="$ctrl.movie.mpaa || !$ctrl.movie.runtime || !$ctrl.movie.releaseDate">&bull;</span>
+        <span ng-show="$ctrl.movie.runtime">{{ $ctrl.movie.runtime }} minutes</span>
+      </div>
+
+
+      <div>
+        <div class="movie-details-heading">Ratings</div>
+        <div class="movie-details-section">{{ $ctrl.movie.popularity | number }} <ng-pluralize count="$ctrl.movie.popularity" when="{'1': 'rating', 'other': 'ratings'}"></ng-pluralize> / avg {{ $ctrl.movie.avgRating | number:1 }} stars</div>
+      </div>        
+
+      <div ng-show="$ctrl.movie.genres[0]">
+        <div class="movie-details-heading">Genres</div>
+        <div class="movie-details-section">{{ $ctrl.movie.genres.join(', ') }}</div>
+      </div>
+
+      <div ng-show="$ctrl.movie.languages[0]">
+        <div class="movie-details-heading">Languages</div>
+        <div class="movie-details-section">{{ $ctrl.movie.languages.join(', ') }}</div>
+      </div>
+
+      <div ng-show="$ctrl.movie.directors[0]">
+        <div class="movie-details-heading">Directors</div>
+        <div class="movie-details-section">
+          {{ $ctrl.movie.directors.join(', ') }}
+        </div>
+      </div>
+
+      <div ng-show="$ctrl.movie.actors[0]">
+        <div class="movie-details-heading">Cast</div>
+        <div class="movie-details-section">
+          {{ $ctrl.movie.actors.join(', ') }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="plot-summary">
+    {{ $ctrl.movie.plotSummary }}
+  </div>
+
+  <div ng-if="$ctrl.ytUrl" class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" ng-src="{{ $ctrl.ytUrl }}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="$close()">Close</button>
+</div>
