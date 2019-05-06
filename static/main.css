@@ -310,6 +310,7 @@ hr {
   z-index: 10;
   opacity: 0;
   background-color: white;
+  display: none;
 }
 
 .ml4-movie-card .movie-card-container .movie-card-image-and-info .movie-card-under-image .bottom {
@@ -325,6 +326,7 @@ hr {
 
 @media (hover) {
 	.ml4-movie-card .movie-card-container .movie-card-image-and-info .movie-card-under-image {
+		display: block;
 		transition: opacity .2s ease;
 	}
 	.ml4-movie-card .movie-card-container .movie-card-image-and-info .movie-card-under-image:hover {
