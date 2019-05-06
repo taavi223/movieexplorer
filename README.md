@@ -4,6 +4,8 @@ MovieExplorer is a tool that allows you to **explore and navigate the cinematic 
 
 MovieExplorer was originally developed for by [Taavi Taijala](https://taavi.taijala.com/) as part of a research study on [MovieLens](https://movielens.org/). A paper examining user perceptions and usage of the tool was published at the _Symposium on Applied Computing_ in 2018. The tool is archived here for public use. To learn more about MovieExplorer or download the paper, please visit the [author's website](https://taavi.taijala.com/).
 
+A live version of the tool can be found [here](https://movieexplorer.taijala.com).
+
 ## Requirements
 
 - Python 3.7.2+ (not tested with earlier versions, but may still work)
