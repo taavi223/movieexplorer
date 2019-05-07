@@ -6,9 +6,20 @@
 
 <div>
   <h1 style="text-align: center; margin-bottom: 30px;">404</h1>
-  <p>We're sorry, but the page you requested cannot be found. Maybe you'd like to visit one of the following pages instead:</p>
+  <p>We're sorry, but the page you requested does not exist. Maybe you'd like to visit one of the following pages instead:</p>
   <ul>
-      <li><a ng-href="#/">MovieExplorer Instructions</a></li>
+      <li><a ng-href="#/instructions">MovieExplorer Instructions</a></li>
       <li><a ng-href="#/explore">MovieExplorer App</a></li>
+      <li><a class="track" href="https://taavi.taijala.com">Taavi Taijala's Website</a></li>
   </ul>
 </div>
+
+<!-- Track outbound clicks -->
+<script>
+  var elementsToTrack = document.querySelectorAll("a.track[href], .track a[href]");
+  for (i=0; i < elementsToTrack.length; i++) {
+    elementsToTrack[i].addEventListener('mousedown', function(event) {
+      gtag('event', 'click', {'event_category': 'link', 'event_label': event.target.href});
+    });
+  }
+</script>

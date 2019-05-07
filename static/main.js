@@ -8,12 +8,15 @@ var app = angular.module('movieExplorer', ['ngRoute', 'ui.bootstrap']);
 /**
 * Configure the Routes
 */
-app.config(['$routeProvider', function ($routeProvider) {
-$routeProvider
-.when("/", {templateUrl: "partials/instructions.html"})
-.when("/explore", {templateUrl: "partials/explore.html", controller: "Explore"})
-.otherwise("/404", {templateUrl: "partials/404.html"});
-}]);
+app.config(['$routeProvider',
+  function ($routeProvider) {
+    $routeProvider
+    .when("/", {redirectTo: "/instructions"})
+    .when("/instructions", {templateUrl: "partials/instructions.html"})
+    .when("/explore", {templateUrl: "partials/explore.html", controller: "Explore"})
+    .otherwise("/404", {templateUrl: "partials/404.html"});
+  }
+]);
 
 function chunk(arr, size) {
   var newArr = [];
@@ -22,6 +25,22 @@ function chunk(arr, size) {
   }
   return newArr;
 }
+
+app.run(['$rootScope', '$location', '$window',
+  function($rootScope, $location, $window) {
+    $rootScope.$on('$locationChangeSuccess',
+      function(event, a, b) {
+        if ($window.gtag) {
+          if ($location.path()) {
+            $window.gtag('config', 'UA-137701509-1', {'page_path': $location.path()});
+            $window.gtag('event', 'page_view');
+          }
+        }
+      }
+    );
+  }
+]);
+
 
 /**
 * Controls MovieExplorer
@@ -78,7 +97,9 @@ app.controller('Explore', function ($scope, $route, $http, $timeout, $anchorScro
       controller: function ModalInstanceCtrl ($uibModalInstance, $sce, movie) {
         var $ctrl = this;
         $ctrl.movie = movie;
-        $ctrl.fullPosterPath = $sce.trustAsResourceUrl('//image.tmdb.org/t/p/w342' + $ctrl.movie.posterPath);
+        if ($ctrl.movie.posterPath) {
+          $ctrl.fullPosterPath = $sce.trustAsResourceUrl('//image.tmdb.org/t/p/w342' + $ctrl.movie.posterPath);          
+        }
         if ($ctrl.movie.genres && $ctrl.movie.genres.length > 4) {
           $ctrl.movie.genres = $ctrl.movie.genres.slice(0, 4);
         }
@@ -103,7 +124,6 @@ app.controller('Explore', function ($scope, $route, $http, $timeout, $anchorScro
     var newFeedbackHistory = feedbackHistory.slice(0);
     newFeedbackHistory.push(feedback);
     
-    console.log(JSON.stringify(exclude));
     $http.post('/api', {"rounds": newFeedbackHistory, "exclude": exclude}).then(
       function(response) {
         feedbackHistory = newFeedbackHistory;

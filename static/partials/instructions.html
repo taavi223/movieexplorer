@@ -8,7 +8,7 @@
   <h2>Welcome to MovieExplorer!</h2>
   <p>MovieExplorer is a tool that allows you to <strong>explore and navigate the cinematic universe</strong>. Use it to find a movie you're in the mood for right now, to browse movies that match a particular interest, or to explore new genres and tastes!</p>
   
-  <p class="text-muted">MovieExplorer was originally developed for by <a href="https://taavi.taijala.com">Taavi Taijala</a> as part of a research study on <a href="https://movielens.org">MovieLens</a>. A paper describing the tool and studying usage and perceptions was published at the <em>Symposium on Applied Computing</em> in 2018. The tool is archived here for public use, and the <a href="https://github.com/taavi223/movieexplorer/">source code</a> is available on GitHub. Read <a href="https://taavi.taijala.com/downloads/MovieExplorer.pdf">the paper</a> to learn more about MovieExplorer.</p>
+  <p class="text-muted track">MovieExplorer was originally developed for by <a href="https://taavi.taijala.com">Taavi Taijala</a> as part of a research study on <a href="https://movielens.org">MovieLens</a>. A paper describing the tool and studying usage and perceptions was published at the <em>Symposium on Applied Computing</em> in 2018. The tool is archived here for public use, and the <a href="https://github.com/taavi223/movieexplorer/">source code</a> is available on GitHub. Read <a href="https://taavi.taijala.com/downloads/MovieExplorer.pdf">the paper</a> to learn more about MovieExplorer.</p>
 
   <hr>
   <div class="instruction">
@@ -39,3 +39,13 @@
     <a class="btn btn-primary" ng-href="#/explore">Get started now  <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
   </div>
 </div>
+
+<!-- Track outbound clicks -->
+<script>
+  var elementsToTrack = document.querySelectorAll("a.track[href], .track a[href]");
+  for (i=0; i < elementsToTrack.length; i++) {
+    elementsToTrack[i].addEventListener('mousedown', function(event) {
+      gtag('event', 'click', {'event_category': 'link', 'event_label': event.target.href});
+    });
+  }
+</script>

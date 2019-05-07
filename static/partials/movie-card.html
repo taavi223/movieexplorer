@@ -19,8 +19,8 @@
 
     <div class="movie-card-image-and-info">
 
-      <div class="movie-card-image">
-          <img ng-click="modal(movie)" ng-src="//image.tmdb.org/t/p/w154{{ movie.posterPath }}" alt="{{ movie.title }} poster" ng-show="movie.posterPath">
+      <div class="movie-card-image" ng-if="movie.posterPath">
+          <img ng-click="modal(movie)" ng-src="//image.tmdb.org/t/p/w154{{ movie.posterPath }}" alt="{{ movie.title }} poster">
       </div>
 
       <div class="movie-card-under-image">

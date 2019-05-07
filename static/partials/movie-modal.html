@@ -5,7 +5,8 @@
   
   <div class="row">
     <div class="col-xs-5">
-      <img style="width: 100%;" ng-src="{{ $ctrl.fullPosterPath }}" class="large-movie-poster" alt="movie poster" ng-show="$ctrl.fullPosterPath" />
+      <img style="width: 100%;" ng-src="{{ $ctrl.fullPosterPath }}" class="large-movie-poster" alt="movie poster" ng-if="$ctrl.fullPosterPath"/>
+      <div class="movie-poster-placeholder" ng-if="!$ctrl.fullPosterPath"><i class="fa fa-picture-o" aria-hidden="true"></i></div>
     </div>
 
     <div class="col-xs-7">
