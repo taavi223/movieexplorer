@@ -12,9 +12,9 @@ app.config(['$routeProvider',
   function ($routeProvider) {
     $routeProvider
     .when("/", {redirectTo: "/instructions"})
-    .when("/instructions", {templateUrl: "partials/instructions.html"})
+    .when("/instructions", {templateUrl: "partials/instructions.html", controller: "Instructions"})
     .when("/explore", {templateUrl: "partials/explore.html", controller: "Explore"})
-    .otherwise("/404", {templateUrl: "partials/404.html"});
+    .otherwise({templateUrl: "partials/404.html", controller: "404"});
   }
 ]);
 
@@ -41,6 +41,23 @@ app.run(['$rootScope', '$location', '$window',
   }
 ]);
 
+app.controller('404', function () {
+  var elementsToTrack = document.querySelectorAll("a.track[href], .track a[href]");
+  for (i=0; i < elementsToTrack.length; i++) {
+    elementsToTrack[i].addEventListener('mousedown', function(event) {
+      gtag('event', 'click', {'event_category': 'link', 'event_label': event.target.href});
+    });
+  }  
+});
+
+app.controller('Instructions', function () {
+  var elementsToTrack = document.querySelectorAll("a.track[href], .track a[href]");
+  for (i=0; i < elementsToTrack.length; i++) {
+    elementsToTrack[i].addEventListener('mousedown', function(event) {
+      gtag('event', 'click', {'event_category': 'link', 'event_label': event.target.href});
+    });
+  }  
+});
 
 /**
 * Controls MovieExplorer

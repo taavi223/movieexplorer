@@ -39,13 +39,3 @@
     <a class="btn btn-primary" ng-href="#/explore">Get started now  <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
   </div>
 </div>
-
-<!-- Track outbound clicks -->
-<script>
-  var elementsToTrack = document.querySelectorAll("a.track[href], .track a[href]");
-  for (i=0; i < elementsToTrack.length; i++) {
-    elementsToTrack[i].addEventListener('mousedown', function(event) {
-      gtag('event', 'click', {'event_category': 'link', 'event_label': event.target.href});
-    });
-  }
-</script>
